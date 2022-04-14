@@ -27,9 +27,13 @@ function App() {
   // 1. roll those dice which are not isHeld
   // 2. if all dice are held then reset all dice
   const rollDice = () => {
+    // track num of rolls
+    setRolls((rolls) => rolls + 1)
+
     if (endGame) {
       setDice(allNewDice())
       setEndGame(false)
+      setRolls(0)
     } else {
       setDice((oldDice) =>
         oldDice.map((die) => (die.isHeld ? die : generateNewDie()))
@@ -52,6 +56,9 @@ function App() {
 
   // a state to check endgame
   const [endGame, setEndGame] = useState(false)
+
+  // a state to track num of rolls
+  const [rolls, setRolls] = useState(0)
 
   // useEffect to checkWin
   // checks if all dice are held and all dice are the same value
@@ -83,6 +90,7 @@ function App() {
           <button className="roll-btn" onClick={rollDice}>
             {endGame ? 'New Game' : 'Roll'}
           </button>
+          <p className="roll-count">You have rolled: {rolls} times</p>
         </div>
       </main>
     </div>

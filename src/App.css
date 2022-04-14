@@ -6,8 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
   background: #0b2434;
 }
 
@@ -17,8 +17,8 @@
   align-items: center;
   justify-content: space-around;
   text-align: center;
-  width: 350px;
-  height: 350px;
+  width: 400px;
+  height: 400px;
   padding: 0 35px;
   background: #f5f5f5;
   border-radius: 10px;
@@ -32,7 +32,8 @@
   margin-bottom: 0;
 }
 
-.description {
+.description,
+.roll-count {
   font-family: 'Inter';
   font-weight: 400;
   font-size: 13px;
