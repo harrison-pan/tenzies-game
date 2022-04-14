@@ -5,26 +5,36 @@ import Die from './components/Die'
 import Confetti from './components/Confetti'
 
 function App() {
-  // function allNewDice generates an array of 10 with random num between 1-6 inclusive
+  // function generate a die with a random number between 1 and 6
+  const generateNewDie = () => {
+    return {
+      value: Math.ceil(Math.random() * 6),
+      isHeld: false,
+      id: nanoid(),
+    }
+  }
+
+  // function allNewDice generates an array of 10 dice
   const allNewDice = () => {
     let newDice = []
     for (let i = 0; i < 10; i++) {
-      const value = Math.floor(Math.random() * 6) + 1
-      newDice.push({ id: nanoid(), value: value, isHeld: false })
+      newDice.push(generateNewDie())
     }
     return newDice
   }
 
-  // function rollDice roll those dice which are not held
+  // function rollDice
+  // 1. roll those dice which are not isHeld
+  // 2. if all dice are held then reset all dice
   const rollDice = () => {
-    let newDice = [...dice]
-    newDice.forEach((die) => {
-      if (!die.isHeld) {
-        die.value = Math.floor(Math.random() * 6) + 1
-        die.id = nanoid()
-      }
-    })
-    setDice(newDice)
+    if (endGame) {
+      setDice(allNewDice())
+      setEndGame(false)
+    } else {
+      setDice((oldDice) =>
+        oldDice.map((die) => (die.isHeld ? die : generateNewDie()))
+      )
+    }
   }
 
   // function holdDice takes 'id' of die and toggles isHeld value
@@ -46,21 +56,12 @@ function App() {
   // useEffect to checkWin
   // checks if all dice are held and all dice are the same value
   useEffect(() => {
-    const checkWin = () => {
-      let allSame = true
-      let allHeld = true
-      let firstValue = dice[0].value
-      dice.forEach((die) => {
-        if (die.value !== firstValue) {
-          allSame = false
-        }
-        if (!die.isHeld) {
-          allHeld = false
-        }
-      })
-      return allSame && allHeld
+    let firstValue = dice[0].value
+    let allSame = dice.every((die) => die.value === firstValue)
+    let allHeld = dice.every((die) => die.isHeld)
+    if (allSame && allHeld) {
+      setEndGame(true)
     }
-    setEndGame(checkWin)
   }, [dice])
 
   // Map over the state numbers array to generate the array of Die components
@@ -80,7 +81,7 @@ function App() {
           </p>
           <div className="die-container">{diceElements}</div>
           <button className="roll-btn" onClick={rollDice}>
-            Roll
+            {endGame ? 'New Game' : 'Roll'}
           </button>
         </div>
       </main>
