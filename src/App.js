@@ -29,6 +29,9 @@ function App() {
           current value between roles.
         </p>
         <div className="die-container">{diceElements}</div>
+        <button className="roll-btn" onClick={() => setDice(allNewDice)}>
+          Roll
+        </button>
       </div>
     </main>
   )
