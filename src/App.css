@@ -22,7 +22,7 @@
   height: 320px;
   padding: 34px;
   background: #f5f5f5;
-  border-radius: 6.4px;
+  border-radius: 10px;
 }
 
 .title {
@@ -39,4 +39,29 @@
   font-weight: 400;
   font-size: 13px;
   color: #4a4e74;
+}
+
+.die-container {
+  display: grid;
+  /* 2 rows of 5 columns */
+  grid-template-columns: repeat(5, 1fr);
+  /* gap */
+  grid-gap: 18px;
+}
+
+.die-face {
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border-radius: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.die-num {
+  font-family: 'Karla';
+  font-weight: 700;
+  font-size: 20px;
+  color: #2b283a;
 }

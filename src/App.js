@@ -1,4 +1,5 @@
 import './App.css'
+import Die from './Die'
 
 function App() {
   return (
@@ -9,6 +10,18 @@ function App() {
           Roll until all dice are the same. Click each die to freeze it at its
           current value between roles.
         </p>
+        <div className="die-container">
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+        </div>
       </div>
     </main>
   )
