@@ -20,6 +20,7 @@ function App() {
     newDice.forEach((die) => {
       if (!die.isHeld) {
         die.value = Math.floor(Math.random() * 6) + 1
+        die.id = nanoid()
       }
     })
     setDice(newDice)
