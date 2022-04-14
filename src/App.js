@@ -18,7 +18,7 @@ function App() {
   const [dice, setDice] = useState(allNewDice)
 
   // Map over the state numbers array to generate the array of Die components
-  const diceElements = dice.map((die) => <Die key={die.id} value={die.value} />)
+  const diceElements = dice.map((die) => <Die key={die.id} {...die} />)
 
   return (
     <main className="main-container">

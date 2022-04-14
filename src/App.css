@@ -61,6 +61,10 @@
   cursor: pointer;
 }
 
+.die-face.held {
+  background-color: #59e391;
+}
+
 .die-num {
   font-family: 'Karla';
   font-weight: 700;
