@@ -30,11 +30,8 @@ function App() {
     console.log('🚀 ~ file: App.js ~ line 19 ~ holdDice ~ id', id)
     setDice(
       dice.map((die) => {
-        if (die.id === id) {
-          return { ...die, isHeld: !die.isHeld }
-        } else {
-          return die
-        }
+        // use ternary operator
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die
       })
     )
   }
