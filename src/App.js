@@ -1,8 +1,10 @@
 import './App.css'
 import { nanoid } from 'nanoid'
 import { useState, useEffect } from 'react'
+import moment from 'moment'
 import Die from './components/Die'
 import Confetti from './components/Confetti'
+import { StopWatch } from './components/StopWatch'
 
 function App() {
   // function generate a die with a random number between 1 and 6
@@ -34,6 +36,7 @@ function App() {
       setDice(allNewDice())
       setEndGame(false)
       setRolls(0)
+      setResetTimer(true)
     } else {
       setDice((oldDice) =>
         oldDice.map((die) => (die.isHeld ? die : generateNewDie()))
@@ -43,6 +46,11 @@ function App() {
 
   // function holdDice takes 'id' of die and toggles isHeld value
   const holdDice = (id) => {
+    // start Timer on the first toggle
+    if (rolls === 0) {
+      setStartTimer(true)
+    }
+
     setDice(
       dice.map((die) => {
         // use ternary operator
@@ -60,6 +68,12 @@ function App() {
   // a state to track num of rolls
   const [rolls, setRolls] = useState(0)
 
+  // a state to track the timer
+  const [startTimer, setStartTimer] = useState()
+
+  // a state to reset the timer
+  const [resetTimer, setResetTimer] = useState(false)
+
   // useEffect to checkWin
   // checks if all dice are held and all dice are the same value
   useEffect(() => {
@@ -68,6 +82,7 @@ function App() {
     let allHeld = dice.every((die) => die.isHeld)
     if (allSame && allHeld) {
       setEndGame(true)
+      setStartTimer(false)
     }
   }, [dice])
 
@@ -91,6 +106,7 @@ function App() {
             {endGame ? 'New Game' : 'Roll'}
           </button>
           <p className="roll-count">You have rolled: {rolls} times</p>
+          <StopWatch startTimer={startTimer} resetTimer={resetTimer} />
         </div>
       </main>
     </div>
