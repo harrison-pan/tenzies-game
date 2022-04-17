@@ -2,8 +2,11 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 
 function StopWatch(props) {
-  // const [gameStartTime, setGameStartTime] = useState(moment())
-  const [diff, setDiff] = useState('00:00:00')
+  const initTime = '00:00:00'
+  const [diff, setDiff] = useState(initTime)
+  const [bestTime, setBestTime] = useState(
+    () => localStorage.getItem('bestScore') || initTime
+  )
   const [stopwatchTimer, setStopwatchTimer] = useState(() => {
     let timer = null
     return {
@@ -27,14 +30,36 @@ function StopWatch(props) {
       stopwatchTimer.start(moment())
     } else {
       stopwatchTimer.stop()
+      getBestScore()
     }
   }, [props.startTimer, stopwatchTimer])
 
-  return (
-    <p className="roll-timer">
-      Game time: {props.resetTimer ? '00:00:00' : diff}
-    </p>
-  )
+  useEffect(() => {
+    localStorage.setItem('bestScore', bestTime)
+  }, [bestTime])
+
+  function getBestScore() {
+    if (bestTime === initTime) {
+      setBestTime(diff)
+    } else {
+      const newBestArr = diff.split(':')
+      const prevBestArr = bestTime.split(':')
+      for (let index = 0; index < newBestArr.length; index++) {
+        let newBest = parseInt(newBestArr[index])
+        let prevBest = parseInt(prevBestArr[index])
+        if (newBest < prevBest) {
+          setBestTime(diff)
+          break
+        } else if (newBest === prevBest) {
+          continue
+        } else {
+          break
+        }
+      }
+    }
+  }
+
+  return <p className="roll-timer">Game time: {diff}</p>
 }
 
 export { StopWatch }

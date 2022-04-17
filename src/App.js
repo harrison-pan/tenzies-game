@@ -1,7 +1,6 @@
 import './App.css'
 import { nanoid } from 'nanoid'
 import { useState, useEffect } from 'react'
-import moment from 'moment'
 import Die from './components/Die'
 import Confetti from './components/Confetti'
 import { StopWatch } from './components/StopWatch'
@@ -36,7 +35,6 @@ function App() {
       setDice(allNewDice())
       setEndGame(false)
       setRolls(0)
-      setResetTimer(true)
     } else {
       setDice((oldDice) =>
         oldDice.map((die) => (die.isHeld ? die : generateNewDie()))
@@ -71,9 +69,6 @@ function App() {
   // a state to track the timer
   const [startTimer, setStartTimer] = useState()
 
-  // a state to reset the timer
-  const [resetTimer, setResetTimer] = useState(false)
-
   // useEffect to checkWin
   // checks if all dice are held and all dice are the same value
   useEffect(() => {
@@ -106,7 +101,7 @@ function App() {
             {endGame ? 'New Game' : 'Roll'}
           </button>
           <p className="roll-count">You have rolled: {rolls} times</p>
-          <StopWatch startTimer={startTimer} resetTimer={resetTimer} />
+          <StopWatch startTimer={startTimer} />
         </div>
       </main>
     </div>
