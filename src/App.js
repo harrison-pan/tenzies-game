@@ -101,7 +101,7 @@ function App() {
             {endGame ? 'New Game' : 'Roll'}
           </button>
           <p className="roll-count">You have rolled: {rolls} times</p>
-          <StopWatch startTimer={startTimer} />
+          <StopWatch startTimer={startTimer} endGame={endGame} />
         </div>
       </main>
     </div>

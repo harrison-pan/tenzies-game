@@ -30,7 +30,7 @@ function StopWatch(props) {
       stopwatchTimer.start(moment())
     } else {
       stopwatchTimer.stop()
-      getBestScore()
+      // getBestScore()
     }
   }, [props.startTimer, stopwatchTimer])
 
@@ -57,6 +57,10 @@ function StopWatch(props) {
         }
       }
     }
+  }
+
+  if (props.endGame) {
+    getBestScore()
   }
 
   return <p className="roll-timer">Game time: {diff}</p>
